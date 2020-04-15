@@ -1,22 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-import List from './components/List.jsx';
+import Card from './components/Card.jsx';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      items: []
+      locations: []
     }
   }
 
   componentDidMount() {
     $.ajax({
-      url: '/items', 
+      url: '/locations', 
       success: (data) => {
         this.setState({
-          items: data
+          locations: data
         })
       },
       error: (err) => {
@@ -27,8 +27,8 @@ class App extends React.Component {
 
   render () {
     return (<div>
-      <h1>Item List</h1>
-      <List items={this.state.items}/>
+      <h1>Location Card</h1>
+      <Card locations={this.state.locations[0]}/>
     </div>)
   }
 }
