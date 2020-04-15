@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test');
+mongoose.connect('mongodb://localhost/matchameal');
 
 var db = mongoose.connection;
 
@@ -11,15 +11,16 @@ db.once('open', function() {
   console.log('mongoose connected successfully');
 });
 
-var itemSchema = mongoose.Schema({
-  quantity: Number,
-  description: String
+var locationSchema = mongoose.Schema({
+  title: String,
+  photoURL: String,
+  details: String
 });
 
-var Item = mongoose.model('Item', itemSchema);
+var Location = mongoose.model('Location', locationSchema);
 
 var selectAll = function(callback) {
-  Item.find({}, function(err, items) {
+  Location.find({}, function(err, items) {
     if(err) {
       callback(err, null);
     } else {
