@@ -2,12 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import Card from './components/Card.jsx';
+import Nav from './components/Nav.jsx';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      locations: []
+      locations: [],
+      loading: true
     }
   }
 
@@ -16,8 +18,9 @@ class App extends React.Component {
       url: '/locations', 
       success: (data) => {
         this.setState({
-          locations: data
-        })
+          locations: data,
+          loading: false
+        });
       },
       error: (err) => {
         console.log('err', err);
@@ -26,9 +29,12 @@ class App extends React.Component {
   }
 
   render () {
-    return (<div>
-      <h1>Location Card</h1>
-      <Card locations={this.state.locations[0]}/>
+    return this.state.loading ? <div>Loading...</div> :
+   (<div>
+      <Nav />
+      <div className="content-container">
+      <Card location={this.state.locations[0]}/>
+      </div>
     </div>)
   }
 }

@@ -1,0 +1,43 @@
+.nav-bar {
+  min-height: 50px;
+  width: 100%;
+  background-color: salmon;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.nav-title {
+  font-size: 30px;
+  font-weight: 700;
+  color: seashell;
+}
+
+.content-container {
+  background-color: #f8f8f3;
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  min-width: 320px;
+  max-width: 320px;
+  background: lightslategray;
+  border-radius: 5px;
+  justify-content: center;
+  justify-items: center;
+  display: inline-grid;
+  margin: 10px;
+  color: antiquewhite;
+  font-weight: 700;
+}
+
+.card .photo {
+  background-image: url('image-placeholder.png');
+  min-width: 300px;
+  min-height: 300px;
+}
+
+.card > * {
+  margin: 5px
+}
