@@ -33,11 +33,24 @@
 }
 
 .card .photo {
-  background-image: url('image-placeholder.png');
+  /* background-image: url('image-placeholder.png');
   min-width: 300px;
-  min-height: 300px;
+  min-height: 300px; */
+}
+
+.card .title {
+  font-size: 20px;
 }
 
 .card > * {
+  margin: 5px
+}
+
+.rating {
+  display: inline-flex;
+  align-items: center;
+}
+
+.stars {
   margin: 5px
 }
