@@ -9,8 +9,13 @@ class App extends React.Component {
     super(props);
     this.state = { 
       locations: [],
-      loading: true
-    }
+      loading: true,
+      approved: [],
+      declined: [],
+      currentOption: 0
+    };
+    this.onApprove = this.onApprove.bind(this);
+    this.onDecline = this.onDecline.bind(this);
   }
 
   componentDidMount() {
@@ -28,15 +33,55 @@ class App extends React.Component {
     });
   }
 
+  onApprove(locId) {
+    let previousState = this.state;
+    console.log(previousState);
+    previousState.approved.push(locId);
+    previousState.currentOption++;
+    this.setState(previousState);
+  }
+
+  onDecline(locId) {
+    let previousState = this.state;
+    previousState.declined.push(locId);
+    previousState.currentOption++;
+    this.setState(previousState);
+  }
+
+  func(){}
+
   render () {
     return this.state.loading ? <div>Loading...</div> :
    (<div>
       <Nav />
       <div className="content-container">
-      <Card location={this.state.locations[0]}/>
+      <Card
+      location={this.state.locations[this.state.currentOption]}
+      onApprove={this.onApprove || this.func}
+      onDecline={this.onDecline || this.func}
+      />
       </div>
     </div>)
   }
 }
+
+//function that gets the location and returns it
+function getLocation() {
+  if(navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else {
+    console.log("Geo Location not supported by browser");
+  }
+}
+//function that retrieves the position
+function showPosition(position) {
+  var location = {
+    longitude: position.coords.longitude,
+    latitude: position.coords.latitude
+  }
+  console.log(location)
+}
+//request for location
+getLocation();
 
 ReactDOM.render(<App />, document.getElementById('app'));
