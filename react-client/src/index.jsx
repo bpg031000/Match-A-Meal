@@ -34,11 +34,15 @@ class App extends React.Component {
   }
 
   onApprove(locId) {
-    let previousState = this.state;
-    console.log(previousState);
-    previousState.approved.push(locId);
-    previousState.currentOption++;
-    this.setState(previousState);
+    if("NSnnUpMyby6L8ALJR3AQwQ" === locId){
+      alert("It's a match!");
+    } else {
+      let previousState = this.state;
+      console.log(previousState);
+      previousState.approved.push(locId);
+      previousState.currentOption++;
+      this.setState(previousState);
+    }
   }
 
   onDecline(locId) {
