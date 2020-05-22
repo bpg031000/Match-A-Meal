@@ -1,87 +1,58 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-import Card from './components/Card.jsx';
+import Session from './session/Session.jsx';
+import Start from './Start/Start.jsx'
 import Nav from './components/Nav.jsx';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      locations: [],
-      loading: true,
-      approved: [],
-      declined: [],
-      currentOption: 0
+      loading: true
     };
-    this.onApprove = this.onApprove.bind(this);
-    this.onDecline = this.onDecline.bind(this);
   }
 
   componentDidMount() {
-    $.ajax({
-      url: '/locations', 
-      success: (data) => {
-        this.setState({
-          locations: data,
-          loading: false
-        });
-      },
-      error: (err) => {
-        console.log('err', err);
-      }
-    });
+    this.setState({loading:false});
+    // $.ajax({
+    //   url: '/locations', 
+    //   success: (data) => {
+    //     this.setState({
+    //       locations: data,
+    //       loading: false
+    //     });
+    //   },
+    //   error: (err) => {
+    //     console.log('err', err);
+    //   }
+    // });
   }
-
-  onApprove(locId) {
-    let previousState = this.state;
-    console.log(previousState);
-    previousState.approved.push(locId);
-    previousState.currentOption++;
-    this.setState(previousState);
-  }
-
-  onDecline(locId) {
-    let previousState = this.state;
-    previousState.declined.push(locId);
-    previousState.currentOption++;
-    this.setState(previousState);
-  }
-
-  func(){}
 
   render () {
-    return this.state.loading ? <div>Loading...</div> :
-   (<div>
-      <Nav />
-      <div className="content-container">
-      <Card
-      location={this.state.locations[this.state.currentOption]}
-      onApprove={this.onApprove || this.func}
-      onDecline={this.onDecline || this.func}
-      />
-      </div>
-    </div>)
+    return(
+    <Router>
+      <div>
+        <Nav />
+        <div className="content-container">
+        <Switch>
+          <Route path="/session/:sessionId" children={<Session />} />
+          <Route path="/">
+            <Start />
+            {/* <span>test</span> */}
+          </Route>
+        </Switch>
+        </div>
+        </div>
+   </Router>
+   )
   }
 }
-
-//function that gets the location and returns it
-function getLocation() {
-  if(navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
-  } else {
-    console.log("Geo Location not supported by browser");
-  }
-}
-//function that retrieves the position
-function showPosition(position) {
-  var location = {
-    longitude: position.coords.longitude,
-    latitude: position.coords.latitude
-  }
-  console.log(location)
-}
-//request for location
-getLocation();
 
 ReactDOM.render(<App />, document.getElementById('app'));
