@@ -21,3 +21,5 @@
 
 ## Ready to try it out? ##
   ### Just head to Match-A-Meal to start lining up the possibilities! ### 
+  
+![usage capture](https://github.com/bpg031000/Match-A-Meal/blob/master/usage%20capture/match-a-meal-mvp.gif)  
