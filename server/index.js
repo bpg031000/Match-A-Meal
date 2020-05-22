@@ -14,6 +14,7 @@ mongo.connectToServer( (err, client )=>{
 
 app.use(express.static(__dirname + '/../react-client/dist'));
 
+
 app.get('/locations', (req, res)=>{
   db.collection('locations2').find().limit(50).toArray()
   .then(data=>{
@@ -23,6 +24,13 @@ app.get('/locations', (req, res)=>{
     console.log(err);
     res.status(500).end();
   });
+});
+
+app.get('/*', (req, res)=>{
+  let options = {
+    root: __dirname + '/../react-client/dist' 
+  }
+  res.sendFile('index.html', options);
 });
 
 app.listen(3000, function() {
